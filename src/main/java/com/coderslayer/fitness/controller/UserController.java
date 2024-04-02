@@ -28,4 +28,21 @@ public class UserController {
 
         return "home";
     }
+
+    @GetMapping("/login")
+    public String getLoginForm(Model model){
+        model.addAttribute("user", new User());
+        // Suggest you to use DTO model
+        
+        return "login";
+    }
+
+    @PostMapping("/login")
+    public String loginUser(@ModelAttribute User user){
+        if(userService.login(user)){
+            return "home";
+        } else {
+            return "login-failed";
+        }
+    }
 }
